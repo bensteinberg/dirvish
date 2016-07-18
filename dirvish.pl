@@ -809,7 +809,7 @@ if ($$Options{index} && $$Options{index} !~/^no/i)
 {
 	
 	open(INDEX, ">$vault/$image/index");
-	open(FIND, "find $destree -ls|") or seppuku 21, "dirvish $vault:$image cannot build index";
+	open(FIND, "find $destree | while IFS= read -r file ; do ls -dgils \"\$file\" ; done |") or seppuku 21, "dirvish $vault:$image cannot build index";
 	while (<FIND>)
 	{
 		s/ $destree\// $aliastree\//g;
